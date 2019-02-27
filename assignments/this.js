@@ -13,16 +13,66 @@
 // Principle 1
 
 // code example for Window Binding
+function favoriteColor(color){
+    console.log(this);
+    return `My favorite color is ${color}`;
+}
+console.log(favoriteColor("pink"));
 
 
 // Principle 2
 
 // code example for Implicit Binding
 
+const car = {
+    name:"BMW",
+    year: 2018,
+    model: function() {
+        return `I have a ${this.name}. It was purchased in ${this.year}.`;
+    }
+}
+console.log(car.model());
+
 // Principle 3
 
 // code example for New Binding
+/**constructor build */
+function Student(name, gender){
+    this.name = name;
+    this.gender = gender;
+    this.introduction = function(){
+        console.log(`My name is ${this.name} and I am a ${this.gender}.`)
+    }
+}
+
+const vanessa = new Student('vanessa',"Female");
+const mark = new Student('Mark',"Male");
+
+vanessa.introduction();
+mark.introduction();
+
 
 // Principle 4
 
 // code example for Explicit Binding
+
+function Place(location){
+    this.country = location.country;
+    this.favoriteToDo = location.favoriteToDo;
+    this.friend = location.friend;
+}
+
+/**Method of the Parent */
+Place.prototype.say = function(){
+    return `Me and my friend ${this.friend} took a week long trip to ${this.country} while in college and 
+    our favorite thing to do was touring the ${this.favoriteToDo}.`
+}
+
+const paris = new Place ({
+
+    country: "Paris",
+    friend: "Gabby",
+    favoriteToDo: "Eiffel Tower"
+})
+
+console.log(paris.say());
