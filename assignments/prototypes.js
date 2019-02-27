@@ -47,14 +47,17 @@ CharacterStats.prototype.takeDamage = function (){
 /** inherit */
 
 function CharacterStats(destroyObj){
-  GameObject.call(this, CharacterStats);
-  this.destory = CharacterStats.destory;
+  GameObject.call(this);
+  // this.destory = CharacterStats.destory;
 
 }
 
-// CharacterStats.prototype = Object.create(GameObject.prototype);CharacterStats.prototype.play = function(){
-//   returns `${this.name} was removed from the game.`;
-// }
+/* create */
+CharacterStats.prototype = Object.create(GameObject.prototype);
+GameObject.prototype.destory = function(){
+  returns `${this.name} was removed from the game.`;
+}
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -76,11 +79,18 @@ function Humanoid(player){
 Humanoid.prototype.greet = function(){
   return `Hello ${this.team}. Would you like your language in ${this.language}?`
 }
-/**inherit*/
+/**inherit from characterStats*/
 function Humanoid(destroyObj){
   CharacterStats.call(this, Humanoid);
-  this.destory = Humanoid.destory;
+  // this.destory = Humanoid.destory;
 
+}
+
+
+/* create from characterStats */
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+CharacterStats.prototype.destory = function(){
+  returns `${this.name} was removed from the game.`;
 }
 
 /*
