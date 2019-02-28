@@ -37,18 +37,18 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(stat){
-  this.healthPoints = stat.healthPoints;
-  this.name = stat.name;
-  GameObject.call(this, stat);
+function CharacterStats (moreAttributes) {
+  GameObject.call(this, moreAttributes);
+  this.hp = moreAttributes.hp;
+  this.name = moreAttributes.name;
 }
+CharacterStats.prototype =
+Object.create(GameObject.prototype);
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-/**Method */
-CharacterStats.prototype.takeDamage = function (){
+CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
+
 
  /** call */
 // function CharacterStats (stat){
@@ -66,19 +66,17 @@ CharacterStats.prototype.takeDamage = function (){
   * should inherit takeDamage() from CharacterStats
 */
  
-function Humanoid(player){
-  this.team = player.team;
-  this.weapons = player.weapons;
-  this.language = player.language;
-  CharacterStats.call(this, player);
+function Humanoid (finalAttributes) {
+  CharacterStats.call(this, finalAttributes);
+  this.faction = finalAttributes.faction;
+  this.weapons = finalAttributes.weapons;
+  this.language = finalAttributes.language;
 }
+Humanoid.prototype = 
+Object.create(CharacterStats.prototype);
 
-Humanoid.prototype =Object.create(CharacterStats.prototype);
-
-/**Method */
-Humanoid.prototype.greet = function(){
-  return `Hello ${this.team}. Would you like your language in ${this.language}?`;
-}
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;};
 
 
 /*
