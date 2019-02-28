@@ -24,8 +24,10 @@ function GameObject(obj){
 }
 
 GameObject.prototype.destroy = function(){
-  returns `${this.name} was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 }
+
+/**call */
 
 
 /*
@@ -37,27 +39,22 @@ GameObject.prototype.destroy = function(){
 
 function CharacterStats(stat){
   this.healthPoints = stat.healthPoints;
+  this.name = stat.name;
+  GameObject.call(this, stat);
 }
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /**Method */
 CharacterStats.prototype.takeDamage = function (){
-  return `this{name} took damage.`
-}
+  return `${this.name} took damage.`;
+};
 
-/** inherit */
+ /** call */
+// function CharacterStats (stat){
+//   GameObject.call(this, stat);
 
-function CharacterStats(destroyObj){
-  GameObject.call(this);
-  // this.destory = CharacterStats.destory;
-
-}
-
-/* create */
-CharacterStats.prototype = Object.create(GameObject.prototype);
-GameObject.prototype.destory = function(){
-  returns `${this.name} was removed from the game.`;
-}
-
+// }
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -73,25 +70,16 @@ function Humanoid(player){
   this.team = player.team;
   this.weapons = player.weapons;
   this.language = player.language;
+  CharacterStats.call(this, player);
 }
+
+Humanoid.prototype =Object.create(CharacterStats.prototype);
 
 /**Method */
 Humanoid.prototype.greet = function(){
-  return `Hello ${this.team}. Would you like your language in ${this.language}?`
-}
-/**inherit from characterStats*/
-function Humanoid(destroyObj){
-  CharacterStats.call(this, Humanoid);
-  // this.destory = Humanoid.destory;
-
+  return `Hello ${this.team}. Would you like your language in ${this.language}?`;
 }
 
-
-/* create from characterStats */
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-CharacterStats.prototype.destory = function(){
-  returns `${this.name} was removed from the game.`;
-}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -101,7 +89,7 @@ CharacterStats.prototype.destory = function(){
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -162,7 +150,7 @@ CharacterStats.prototype.destory = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
